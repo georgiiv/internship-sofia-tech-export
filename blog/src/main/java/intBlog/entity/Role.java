@@ -1,5 +1,7 @@
 package intBlog.entity;
 
+import org.springframework.util.StringUtils;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -39,5 +41,9 @@ public class Role {
         this.name = name;
     }
 
+    @Transient
+    public String getSimpleName(){
+        return StringUtils.capitalize(this.getName().substring(5).toLowerCase());
+    }
 
 }
