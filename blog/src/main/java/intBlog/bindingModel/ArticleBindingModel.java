@@ -1,5 +1,6 @@
 package intBlog.bindingModel;
 
+
 import javax.validation.constraints.NotNull;
 
 public class ArticleBindingModel {
@@ -7,6 +8,26 @@ public class ArticleBindingModel {
     private String title;
     @NotNull
     private String content;
+
+    private Integer categoryId;
+
+    private String tagString;
+
+    public String getTagString() {
+        return tagString;
+    }
+
+    public void setTagString(String tagString) {
+        this.tagString = tagString;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getTitle() {
         return title;

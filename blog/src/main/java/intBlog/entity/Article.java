@@ -1,6 +1,8 @@
 package intBlog.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "articles")
@@ -14,6 +16,18 @@ public class Article {
     private User author;
 
     private Category category;
+
+    private Set<Tag> tags;
+
+    @ManyToMany()
+    @JoinColumn(table = "article_tags")
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
 
     @ManyToOne()
     @JoinColumn(nullable = false, name = "categoryId")
@@ -65,13 +79,21 @@ public class Article {
 
     @Transient
     public String getSummary(){
-        return this.getContent().substring(0, this.getContent().length()/2)+"...";
+        Integer length = this.getContent().length();
+        if(length < 400) {
+            return this.getContent().substring(0, length);
+        }else{
+            return this.getContent().substring(0, 400) + "...";
+        }
     }
 
-    public Article(String title, String content, User author) {
+    public Article(String title, String content, User author, Category category, HashSet<Tag> tags) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.category = category;
+
+        this.tags = tags;
     }
 
     public Article() {
